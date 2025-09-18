@@ -1,0 +1,56 @@
+﻿@model List<Student>;
+@{
+    ViewData["Title"] = "All Students";
+}
+
+<div class="container py-4">
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <h1 class="fw-bold">Student List</h1>
+        <a href="@Url.Action("AddStudent", "Student")" class="btn btn-primary">
+            <i class="bi bi-plus-circle-fill me-2"></i>Add New Student
+        </a>
+    </div>
+
+    <div class="card p-3 mb-4">
+        <form asp-controller="Student" asp-action="Search" method="get">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-6">
+                    <input type="search" name="query" class="form-control" placeholder="Enter search query..." required>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="searchById" value="id" checked>
+                        <label class="form-check-label" for="searchById">By ID</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="searchBy" id="searchByName" value="name">
+                        <label class="form-check-label" for="searchByName">By Name</label>
+                    </div>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-secondary"><i class="bi bi-search me-2"></i>Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+
+       
+
+        @foreach (var student in Model)
+        
+        {
+            //html helper
+        @*     @await Html.PartialAsync("_StudentCard", student) *@
+
+			<partial name="_StudentCard" model=student />
+        
+        
+        
+        }
+
+       
+
+    </div>
+</div>

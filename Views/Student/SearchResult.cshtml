@@ -1,0 +1,43 @@
+﻿
+@model List<Student> 
+
+@{
+    ViewData["Title"] = "Search Results";
+    var searchQuery = ViewContext.HttpContext.Request.Query["query"];
+}
+
+<div class="container py-4">
+    <div class="page-header d-flex justify-content-between align-items-center">
+        <h1 class="fw-bold">Search Results</h1>
+        <a href="@Url.Action("AllStudents", "Student")" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle me-2"></i>Back to Student List
+        </a>
+    </div>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="alert alert-success mb-4">
+            Found <strong>@Model.Count()</strong> result(s) for your query: <strong>"@searchQuery"</strong>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var student in Model)
+            {
+                 @* @await Html.PartialAsync("_StudentCard", student) *@
+                 <partial name="_StudentCard" model=student />
+                 		
+
+
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            <h4 class="alert-heading">No Results Found</h4>
+            <p>No students found matching your search for: <strong>"@searchQuery"</strong></p>
+            <hr>
+            <p class="mb-0">Please try a different search query or go back to the full student list.</p>
+        </div>
+    }
+</div>

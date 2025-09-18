@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container my-5">
+    <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+        <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+            <h1 class="display-4 fw-bold lh-1 text-body-emphasis">Modern Student Management System</h1>
+            <p class="lead mt-3">
+                This system is designed for the effective management of student information. Here you can view the list of students, add a new student, and search among existing records.
+            </p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+                <a href="@Url.Action("AllStudents", "Student")" type="button" class="btn btn-primary btn-lg px-4 me-md-2 fw-bold">View Students</a>
+                <a href="@Url.Action("AddStudent", "Student")" type="button" class="btn btn-outline-secondary btn-lg px-4">Create New Student</a>
+            </div>
+        </div>
+        <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+            <img class="rounded-lg-3" src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070&auto=format&fit=crop" alt="Students" width="720">
+        </div>
+    </div>
+</div>

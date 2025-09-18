@@ -1,0 +1,57 @@
+﻿@model StudentManagementSystem.ViewModels.StudentCreateViewModel
+@{
+    ViewData["Title"] = "Add New Student";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>New Student Information</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="AddStudent" method="post" novalidate>
+                           
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label">Full Name</label>
+                            <input asp-for="Name"  class="form-control"  placeholder="Enter student's full name" required>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                       
+                        <div class="mb-3">
+                            <label asp-for="Age" class="form-label">Age</label>
+                            <input asp-for="Age" class="form-control" id="studentAge" placeholder="Enter student's age" required>
+							<span asp-validation-for="Age" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label">Email</label>
+                            <input asp-for="Email" class="form-control" id="studentEmail" placeholder="Enter student's email address" required>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="mb-3">
+                            <label asp-for="GroupId" class="form-label">Group</label>
+                            <select asp-for="GroupId" asp-items="ViewBag.GroupsForDropdown" class="form-select">
+                                <option value="">-- Select a Group --</option>
+                            </select>
+                            <span asp-validation-for="GroupId" class="text-danger"></span>
+                        </div>
+
+
+
+
+                        <hr>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="bi bi-check-circle-fill me-2"></i>Save Student
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

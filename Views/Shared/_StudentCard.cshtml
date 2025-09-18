@@ -1,0 +1,15 @@
+﻿
+@model Student
+
+<div class="col">
+    <div class="card h-100">
+        <div class="card-body">
+            <h5 class="card-title fw-bold border-bottom pb-2">@Model.Name</h5>
+            <p class="card-text mb-1"><strong>ID:</strong> @Model.Id</p>
+            <p class="card-text mb-1"><strong>Group:</strong> @Model.Group?.Name</p>
+            <p class="card-text mb-1"><strong>Age:</strong> @Model.Age</p>
+            <p class="card-text"><strong>Email:</strong> @Model.Email</p>
+@*             <a href="#" class="btn btn-sm btn-outline-primary mt-2">View Details</a>
+ *@        </div>
+    </div>
+</div>
