@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem", "StudentManagementSystem.csproj", "{EE7160FC-549D-4D6C-B3D1-F197763622B3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Domain", "..\StudentManagementSystem.Domain\StudentManagementSystem.Domain.csproj", "{EB58C736-1952-45F7-81CF-63C459D0D402}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
@@ -15,16 +13,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Per
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{CD90E168-0115-4434-95A6-F30088463178}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Application", "StudentManagementSystem.Application\StudentManagementSystem.Application.csproj", "{652DCEA3-3F10-6B11-53C6-575EC82DDF05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Domain", "StudentManagementSystem.Domain\StudentManagementSystem.Domain.csproj", "{07C46EA6-D721-2511-35A9-D135440CA844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem.Persistence", "StudentManagementSystem.Persistence\StudentManagementSystem.Persistence.csproj", "{52DE83B0-BEBE-4346-841A-760C8E4C3890}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentManagementSystem", "StudentManagementSystem\StudentManagementSystem.csproj", "{B23C590A-4928-8C66-4B08-6622C9777249}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EE7160FC-549D-4D6C-B3D1-F197763622B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EE7160FC-549D-4D6C-B3D1-F197763622B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EE7160FC-549D-4D6C-B3D1-F197763622B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EE7160FC-549D-4D6C-B3D1-F197763622B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EB58C736-1952-45F7-81CF-63C459D0D402}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EB58C736-1952-45F7-81CF-63C459D0D402}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB58C736-1952-45F7-81CF-63C459D0D402}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -37,6 +39,22 @@ Global
 		{7F464C25-7C0E-4097-85C8-1D1205054214}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F464C25-7C0E-4097-85C8-1D1205054214}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F464C25-7C0E-4097-85C8-1D1205054214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{652DCEA3-3F10-6B11-53C6-575EC82DDF05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{652DCEA3-3F10-6B11-53C6-575EC82DDF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{652DCEA3-3F10-6B11-53C6-575EC82DDF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{652DCEA3-3F10-6B11-53C6-575EC82DDF05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07C46EA6-D721-2511-35A9-D135440CA844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07C46EA6-D721-2511-35A9-D135440CA844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07C46EA6-D721-2511-35A9-D135440CA844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07C46EA6-D721-2511-35A9-D135440CA844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52DE83B0-BEBE-4346-841A-760C8E4C3890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52DE83B0-BEBE-4346-841A-760C8E4C3890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52DE83B0-BEBE-4346-841A-760C8E4C3890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52DE83B0-BEBE-4346-841A-760C8E4C3890}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B23C590A-4928-8C66-4B08-6622C9777249}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B23C590A-4928-8C66-4B08-6622C9777249}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B23C590A-4928-8C66-4B08-6622C9777249}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B23C590A-4928-8C66-4B08-6622C9777249}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
