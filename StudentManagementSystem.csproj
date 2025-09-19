@@ -19,4 +19,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StudentManagementSystem.Application\StudentManagementSystem.Application.csproj" />
+    <ProjectReference Include="..\StudentManagementSystem.Persistence\StudentManagementSystem.Persistence.csproj" />
+  </ItemGroup>
+
 </Project>

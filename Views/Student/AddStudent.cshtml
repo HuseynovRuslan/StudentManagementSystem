@@ -11,7 +11,7 @@
                     <h3 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>New Student Information</h3>
                 </div>
                 <div class="card-body">
-                    <form asp-action="AddStudent" method="post" novalidate>
+                    <form asp-action="AddStudent" method="post">
                            
                         <div class="mb-3">
                             <label asp-for="Name" class="form-label">Full Name</label>
@@ -34,7 +34,7 @@
 
                         <div class="mb-3">
                             <label asp-for="GroupId" class="form-label">Group</label>
-                            <select asp-for="GroupId" asp-items="ViewBag.GroupsForDropdown" class="form-select">
+                            <select asp-for="GroupId" asp-items="@(new SelectList(Model.Groups, "Id", "Name"))" class="form-select">
                                 <option value="">-- Select a Group --</option>
                             </select>
                             <span asp-validation-for="GroupId" class="text-danger"></span>
@@ -55,3 +55,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

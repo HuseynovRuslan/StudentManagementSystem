@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using StudentManagementSystem.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudentManagementSystem.ViewModels
     
@@ -18,5 +19,7 @@ namespace StudentManagementSystem.ViewModels
 
         [Required(ErrorMessage = "GroupId is required")]
         public int GroupId { get; set; }
+        public List<Group> Groups { get; set; }
     }
 }
+

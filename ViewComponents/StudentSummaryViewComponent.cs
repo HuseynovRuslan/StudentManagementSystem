@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StudentManagementSystem.Controllers;
-using StudentManagementSystem.Data;
+using StudentManagementSystem.Persistence.Data;
 using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.ViewComponents

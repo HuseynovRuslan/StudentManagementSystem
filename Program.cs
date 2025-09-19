@@ -1,5 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using StudentManagementSystem.Data;
+using StudentManagementSystem.Persistence.Data;
+using StudentManagementSystem.Application.Interfaces;
+using StudentManagementSystem.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+
 
 namespace StudentManagementSystem
 {
@@ -18,7 +23,11 @@ namespace StudentManagementSystem
                 options.UseSqlServer(connenctionString);
             });
 
-           
+ 
+            builder.Services.AddScoped<IGroupRepository, GroupRepository>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.

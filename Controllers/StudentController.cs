@@ -1,41 +1,45 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using StudentManagementSystem.Data;
-using StudentManagementSystem.Models;
+using StudentManagementSystem.Application.Interfaces;
+using StudentManagementSystem.Domain;
+using StudentManagementSystem.Persistence.Data;
 using StudentManagementSystem.ViewModels;
-
 namespace StudentManagementSystem.Controllers
 {
-
-
 
     public class StudentController : Controller
     {
 
 
 
-        private readonly ApplicationDbContext _context;
-        public StudentController(ApplicationDbContext context)
+        private readonly IStudentRepository _studentRepository;
+        private readonly IGroupRepository _groupRepository; 
+
+        public StudentController(IStudentRepository studentRepository, IGroupRepository groupRepository)
         {
-            _context = context;
+            _studentRepository = studentRepository;
+            _groupRepository = groupRepository;
         }
 
 
         [HttpGet]
-        public IActionResult AddStudent()
+        public async Task<IActionResult> AddStudent()
         {
-
-
-            var groups = _context.Groups.ToList();
-            ViewBag.GroupsForDropdown = new SelectList(groups, "Id", "Name");
-
-            return View(new StudentCreateViewModel());
+            var groups = await _groupRepository.GetAllAsync();
+            var viewModel = new StudentCreateViewModel
+            {
+                Groups = groups
+            };
+            return View(viewModel);
         }
+
+
         [HttpPost]
 
-        public IActionResult AddStudent(StudentCreateViewModel viewModel)
+        public async Task <IActionResult> AddStudent(StudentCreateViewModel viewModel)
         {
+
 
             if (ModelState.IsValid)
             {
@@ -43,61 +47,35 @@ namespace StudentManagementSystem.Controllers
                 {
                     Name = viewModel.Name,
                     Age = viewModel.Age,
-                    Email = viewModel.Email,
+                    Email = viewModel.Email, 
                     GroupId = viewModel.GroupId
                 };
-
-
-
-                _context.Students.Add(student);
-                _context.SaveChanges();
+                await _studentRepository.AddAsync(student);
                 return RedirectToAction("AllStudents");
             }
 
-            ViewBag.GroupsForDropdown = new SelectList(_context.Groups.ToList(), "Id", "Name");
 
+
+            viewModel.Groups = await _groupRepository.GetAllAsync();
             return View(viewModel);
         }
 
-        public IActionResult AllStudents()
+        public async Task <IActionResult> AllStudents()
         {
-            var students = _context.Students
-                .Include(s => s.Group)
-                .ToList();
-
-
-
+            var students = await _studentRepository.GetAllAsync();
+             
             return View(students);
         }
 
         [HttpGet]
-        public IActionResult Search(string query, string searchBy)
+        public async Task<IActionResult> SearchResult(string query)
         {
-
-
-
             if (string.IsNullOrEmpty(query))
             {
-                return RedirectToAction("AllStudents");
+                return View(new List<Student>());
             }
-
-            IQueryable<Student> studentsQuery = _context.Students;
-
-            if (searchBy == "id")
-            {
-
-                if (int.TryParse(query, out int id))
-                {
-                    studentsQuery = studentsQuery.Where(s => s.Id == id);
-                }
-
-            }
-            else
-            {
-                studentsQuery = studentsQuery.Where(s => s.Name.ToLower().Contains(query.ToLower()));
-            }
-            var results = studentsQuery.ToList();
-            return View("SearchResult", results);
+            var students = await _studentRepository.SearchAsync(query);
+            return View(students);
         }
     }
 }

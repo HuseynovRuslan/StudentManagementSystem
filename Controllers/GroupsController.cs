@@ -1,166 +1,95 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StudentManagementSystem.Data;
-using StudentManagementSystem.Models;
-using StudentManagementSystem.ViewModels;
-
+using StudentManagementSystem.Application.Interfaces; 
+using StudentManagementSystem.Domain;                 
 
 namespace StudentManagementSystem.Controllers
 {
     public class GroupsController : Controller
     {
+        private readonly IGroupRepository _groupRepository;
 
-        private readonly ApplicationDbContext _context;
-
-        public GroupsController(ApplicationDbContext context)
+        public GroupsController(IGroupRepository groupRepository)
         {
-            _context = context;
+            _groupRepository = groupRepository;
         }
 
-
-        [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
-            var groups = _context.Groups.ToList();
+            var groups = await _groupRepository.GetAllAsync();
             return View(groups);
         }
 
-
-        [HttpGet]
-        public IActionResult Create() {
-
-
-            return View(new GroupCreateViewModel());
-
-
+        public IActionResult Create()
+        {
+            return View();
         }
-
 
         [HttpPost]
-        public IActionResult Create(GroupCreateViewModel viewModel) {
-
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name")] Group group)
+        {
             if (ModelState.IsValid)
-
-
             {
-                var group = new Group
-                {
-                    Name = viewModel.Name
-                };
-
-                _context.Groups.Add(group);
-                _context.SaveChanges();
-                return RedirectToAction("Index"); 
+                await _groupRepository.AddAsync(group);
+                return RedirectToAction(nameof(Index));
             }
-            return View(viewModel);
+            return View(group);
         }
 
-        [HttpGet]
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
-
             if (id == null)
             {
                 return NotFound();
             }
-            var group = _context.Groups.FirstOrDefault(g => g.Id == id);
+
+            var group = await _groupRepository.GetByIdAsync(id.Value);
+            if (group == null)
+            {
+                return NotFound();
+            }
+            return View(group);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Group group)
+        {
+            if (id != group.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                await _groupRepository.UpdateAsync(group);
+                return RedirectToAction(nameof(Index));
+            }
+            return View(group);
+        }
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var group = await _groupRepository.GetByIdAsync(id.Value);
             if (group == null)
             {
                 return NotFound();
             }
 
             return View(group);
-
         }
 
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int? id) {
-         
-            bool hasStudents = _context.Students.Any(s => s.GroupId == id);
-            if (hasStudents) {
-                TempData["ErrorMessage"] = $"Cannot delete group with ID {id} because it has students assigned to it.";
-                return RedirectToAction("Index");
-
-
-            }
-
-            var group = _context.Groups.Find(id);
-            if (group != null) {
-           
-                _context.Groups.Remove(group);
-                    _context.SaveChanges();
-              
-            }
-            return RedirectToAction("Index");
-
-        }
-        [HttpGet]
-        public IActionResult Edit(int id) {
-
-
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var group = _context.Groups.Find(id);
-            if (group == null)
-            {
-                return NotFound();
-            }
-
-            var viewModel = new GroupEditViewModel
-            {
-                Id = group.Id,
-                Name = group.Name
-            };
-
-
-
-
-
-            return View(viewModel);
-        }
-
-        [HttpPost]
-
-       public IActionResult Edit(int id,GroupEditViewModel viewModel)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if(id != viewModel.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-
-                var groupFromDb = _context.Groups.Find(viewModel.Id);
-                if (groupFromDb == null)
-                {
-
-                    return NotFound();
-                }
-                groupFromDb.Name=viewModel.Name;
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-
-
-
-
-            }
-
-
-            return View(viewModel);
-
+            await _groupRepository.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
         }
-
-
-
-
-
-
-
-
     }
 }
